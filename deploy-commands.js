@@ -16,14 +16,14 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log(`Lancement du déploiement des ${commands.length} slash commandes (/).`);
 
 		const data = await rest.put(
 			Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
 			{ body: commands },
 		);
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+		console.log(`Déploiement des ${data.length} slash commandes (/) réussit.`);
 	} catch (error) {
 		console.error(error);
 	}
