@@ -2,7 +2,6 @@ const { promisify } = require('util');
 const { glob } = require('glob');
 const pGlob = promisify(glob);
 const { REST, Routes } = require('discord.js');
-const dotenv = require('dotenv');
 
 module.exports = async (client) => {
     const commands = [];
