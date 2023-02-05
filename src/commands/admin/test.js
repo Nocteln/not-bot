@@ -3,7 +3,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("test")
-		.setDescription("Permet de tester les boutons.")
+		.setDescription("Permet de tester les différents composants.")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.setDMPermission(false),
 	async execute(interaction) {
@@ -11,7 +11,7 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setCustomId('test')
-					.setLabel('Lancer test !')
+					.setLabel('Lancer le modal !')
 					.setStyle(ButtonStyle.Primary)
                     .setEmoji('🚧'),
 			);
@@ -42,6 +42,6 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
 
-            await interaction.reply({ content: 'Je pense que le déploiement des modules, fonctionne bien.', ephemeral: true, embeds: [embed], components: [row1, row] });
+        await interaction.reply({ content: 'Je pense que le déploiement des modules, fonctionne bien.', ephemeral: true, embeds: [embed], components: [row1, row] });
 	},
 };

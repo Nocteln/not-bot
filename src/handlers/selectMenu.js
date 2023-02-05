@@ -3,7 +3,7 @@ const { glob } = require('glob');
 const pGlob = promisify(glob);
 
 module.exports = async (client) => {
-    (await pGlob(`${process.cwd()}/selectMenu/*/*.js`)).map(async (menuFile) => {
+    (await pGlob(`${process.cwd()}/src/selectMenu/*/*.js`)).map(async (menuFile) => {
         const menu = require(menuFile);
 
         if ('data' in menu && 'execute' in menu) {

@@ -41,6 +41,18 @@ module.exports = {
 				console.error(`Erreur d'exécution du menu : ${interaction.customId}`);
 				console.error(error);
 			}
+		} else if (interaction.isModalSubmit()) {
+			const { modals } = interaction.client;
+			const { customId } = interaction;
+			const modal = modals.get(customId);
+			if (!modal) return new Error("Il n'y a pas de code pour cette modal.");
+
+			try {
+				await modal.execute(interaction);
+			} catch (error) {
+				console.error(`Erreur d'exécution de la modal : ${interaction.customId}`);
+				console.error(error);
+			}
 		} else {
 			console.error(`Interaction inconnue : ${interaction}`);
 		}

@@ -6,7 +6,7 @@ const { REST, Routes } = require('discord.js');
 module.exports = async (client) => {
     const commands = [];
 
-    (await pGlob(`${process.cwd()}/commands/*/*.js`)).map(async (cmdFile) => {
+    (await pGlob(`${process.cwd()}/src/commands/*/*.js`)).map(async (cmdFile) => {
         const cmd = require(cmdFile);
         commands.push(cmd.data.toJSON());
 
