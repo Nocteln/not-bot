@@ -1,6 +1,6 @@
 module.exports = {
     data: {
-        name: "test_menu",
+        name: "test_selectMenu",
     },
     async execute(interaction) {
         switch (interaction.values[0]) {

@@ -53,6 +53,18 @@ module.exports = {
 				console.error(`Erreur d'exécution de la modal : ${interaction.customId}`);
 				console.error(error);
 			}
+		} else if (interaction.isUserContextMenuCommand()) {
+			const { contextMenus } = interaction.client;
+			const { customId } = interaction;
+			const contextMenu = contextMenus.get(customId);
+			if (!contextMenu) return new Error("Il n'y a pas de code pour ce menu contextuel.");
+
+			try {
+				await contextMenu.execute(interaction);
+			} catch (error) {
+				console.error(`Erreur d'exécution du menu contextuel : ${interaction.customId}`);
+				console.error(error);
+			}
 		} else {
 			console.error(`Interaction inconnue : ${interaction}`);
 		}

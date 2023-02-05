@@ -19,7 +19,7 @@ module.exports = {
 		const row1 = new ActionRowBuilder()
 			.addComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId('test_menu')
+					.setCustomId('test_selectMenu')
 					.setPlaceholder('Sélectionnez une option')
 					.addOptions(
 						{

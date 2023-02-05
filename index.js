@@ -5,12 +5,13 @@ dotenv.config();
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 client.buttons = new Collection();
-client.menus = new Collection();
+client.selectMenus = new Collection();
 client.modals = new Collection();
 
-['commands', 'events', 'buttons', 'selectMenu', 'modals'].forEach((handler) => {
+['commands', 'events', 'buttons', 'modals', 'selectMenus'].forEach((handler) => {
     require(`./src/handlers/${handler}`)(client);
 });
+
 
 process.on('exit', code => { console.error(`=> Le processus s'est arrêté avec le code : ${code}`) });
 
