@@ -30,15 +30,15 @@ module.exports = {
                 console.error(error);
             }
 		} else if (interaction.isStringSelectMenu()) {
-			const { menus } = interaction.client;
+			const { selectMenus } = interaction.client;
 			const { customId } = interaction;
-			const menu = menus.get(customId);
-			if (!menu) return new Error("Il n'y a pas de code pour ce menu.");
+			const selectMenu = selectMenus.get(customId);
+			if (!selectMenu) return new Error("Il n'y a pas de code pour ce menu déroulant.");
 
 			try {
-				await menu.execute(interaction);
+				await selectMenu.execute(interaction);
 			} catch (error) {
-				console.error(`Erreur d'exécution du menu : ${interaction.customId}`);
+				console.error(`Erreur d'exécution du menu déroulant : ${interaction.customId}`);
 				console.error(error);
 			}
 		} else if (interaction.isModalSubmit()) {
