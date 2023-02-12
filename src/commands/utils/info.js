@@ -30,7 +30,7 @@ module.exports = {
             .addFields(
                 { name: 'Date de création', value: `<t:${parseInt(botUser.createdTimestamp / 1000)}:R>`, inline: true },
                 { name: 'En ligne depuis', value: `<t:${parseInt(interaction.client.readyTimestamp / 1000)}:f>`, inline: true },
-                { name: `${isTeamOwner ? "Mes propriétaires" : "Mon propriétaire"} :`, value: `▸ ${owner}`, inline: true },
+                { name: `${isTeamOwner ? "Mes propriétaires" : "Mon propriétaire"} :`, value: owner, inline: true },
                 { name: 'Mes développeurs :', value: `▸ [Guscraftin#0828](https://github.com/Guscraftin)`, inline: true },
             )
             .setColor('DarkAqua')
