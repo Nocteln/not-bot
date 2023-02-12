@@ -8,14 +8,15 @@ module.exports = {
 	async execute(interaction) {
         const botUser = interaction.client.user;
         let isTeamOwner = false;
-        let owner = [];
-        await interaction.client.application.fetch().then(function (bot) {
-            try {
-                owner.push(`${bot.owner.tag}`);
-            } catch (error) {
+        let owner = "Aucun";
+        await interaction.client.application.fetch().then(function(bot) {
+            if (bot.owner.tag !== undefined) {
+                owner = `▸ ${bot.owner.tag}`
+            } else {
                 isTeamOwner = true;
+                owner = "";
                 bot.owner.members.forEach(member => {
-                    owner.push(`${member.user.tag}`); 
+                    owner += `▸ ${member.user.tag}\n`;
                 });
             }
         });
