@@ -3,7 +3,8 @@ const { glob } = require('glob');
 const pGlob = promisify(glob);
 
 module.exports = async (client) => {
-    (await pGlob(`${process.cwd()}/src/modals/*/*.js`)).map(async (modalFile) => {
+    (await pGlob(`${process.cwd()}/src/modals/*/*.js`, { windowsPathsNoEscape: 
+        process.env.ON_WINDOWS })).map(async (modalFile) => {
         const modal = require(modalFile);
 
         if ('data' in modal && 'execute' in modal) {

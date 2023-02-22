@@ -3,7 +3,8 @@ const { glob } = require('glob');
 const pGlob = promisify(glob);
 
 module.exports = async (client) => {
-    (await pGlob(`${process.cwd()}/src/buttons/*/*.js`)).map(async (buttonFile) => {
+    (await pGlob(`${process.cwd()}/src/buttons/*/*.js`, { windowsPathsNoEscape: 
+        process.env.ON_WINDOWS })).map(async (buttonFile) => {
         const button = require(buttonFile);
 
         if ('data' in button && 'execute' in button) {
