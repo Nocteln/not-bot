@@ -37,6 +37,6 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
 
-        interaction.reply({ content: null, embeds: [embed] });
+        return interaction.reply({ content: null, embeds: [embed] });
 	},
 };

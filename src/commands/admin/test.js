@@ -42,6 +42,6 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
 
-        await interaction.reply({ content: 'Je pense que le déploiement des modules, fonctionne bien.', ephemeral: true, embeds: [embed], components: [row1, row] });
+        return interaction.reply({ content: 'Je pense que le déploiement des modules, fonctionne bien.', ephemeral: true, embeds: [embed], components: [row1, row] });
 	},
 };

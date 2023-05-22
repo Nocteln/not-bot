@@ -19,6 +19,6 @@ module.exports = {
 
         modal.addComponents(new ActionRowBuilder().addComponents(newNameInput));
 
-        await interaction.showModal(modal);
+        return interaction.showModal(modal);
     }
 }
