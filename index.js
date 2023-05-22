@@ -15,12 +15,12 @@ client.modals = new Collection();
 
 process.on('exit', code => { console.error(`=> Le processus s'est arrêté avec le code : ${code}`) });
 
-process.on('uncaughtException', (err, origin) => { 
+process.on('uncaughtException', (err, origin) => {
     console.error(`=> UNCAUGHT_EXCEPTION : ${err}`)
     console.error(`Origine : ${origin}`)
 });
 
-process.on('unhandledRejection', (reason, promise) => { 
+process.on('unhandledRejection', (reason, promise) => {
     console.error(`=> UNHANDLE_REJECTION : ${{reason}}`)
     console.error(promise);
 });

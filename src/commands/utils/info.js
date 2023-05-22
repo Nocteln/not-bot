@@ -1,11 +1,11 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("info")
-		.setDescription("Afficher les informations du bot.")
+    data: new SlashCommandBuilder()
+        .setName("info")
+        .setDescription("Afficher les informations du bot.")
         .setDMPermission(true),
-	async execute(interaction) {
+    async execute(interaction) {
         const botUser = interaction.client.user;
         let isTeamOwner = false;
         let owner = "Aucun";
@@ -38,5 +38,5 @@ module.exports = {
             .setFooter({ text: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
 
         return interaction.reply({ content: null, embeds: [embed] });
-	},
+    },
 };
