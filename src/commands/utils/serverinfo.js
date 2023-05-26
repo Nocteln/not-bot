@@ -10,7 +10,7 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setTitle(`Informations du serveur : `)
       .setColor("Random")
-      .setImage(interaction.guild.iconURL())
+      .setThumbnail(interaction.guild.iconURL())
       .setFooter({
         text: `Demande de : ${interaction.user.username}`,
         iconURL: interaction.user.displayAvatarURL(),
