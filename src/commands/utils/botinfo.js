@@ -7,19 +7,6 @@ module.exports = {
     .setDMPermission(true),
   async execute(interaction) {
     const botUser = interaction.client.user;
-    let isTeamOwner = false;
-    let owner = "Aucun";
-    await interaction.client.application.fetch().then(function (bot) {
-      if (bot.owner.tag !== undefined) {
-        owner = `▸ ${bot.owner.tag}`;
-      } else {
-        isTeamOwner = true;
-        owner = "";
-        bot.owner.members.forEach((member) => {
-          owner += `▸ ${member.user.tag}\n`;
-        });
-      }
-    });
 
     const embed = new EmbedBuilder()
       .setTitle("Information sur le bot :")
@@ -31,7 +18,7 @@ module.exports = {
       .setDescription("Bip Boup Bip")
       .addFields(
         {
-          name: "Date de création",
+          name: "<:bot:1111697755405033502> Date de création",
           value: `<t:${parseInt(botUser.createdTimestamp / 1000)}:R>`,
           inline: true,
         },
@@ -41,13 +28,19 @@ module.exports = {
           inline: true,
         },
         {
-          name: `${isTeamOwner ? "Mes propriétaires" : "Mon propriétaire"} :`,
-          value: owner,
+          name: `<:courronne2:1111698188710199436> Mon propriétaire :`,
+          value: "[Nocteln#5214](https://github.com/Nocteln)",
           inline: true,
         },
         {
-          name: "Mes développeurs :",
-          value: `▸ [Guscraftin#0828](https://github.com/Guscraftin)\n ▸ [Nocteln#5214](https://github.com/Nocteln)`,
+          name: "<:plus:1111665846469787698> inviter le bot :",
+          value:
+            "[clique ici](https://discord.com/api/oauth2/authorize?client_id=938161748832305224&permissions=8&scope=bot%20applications.commands)",
+          inline: true,
+        },
+        {
+          name: "<:info:1111694559974535288> support",
+          value: "pas encore dispo",
           inline: true,
         }
       )
