@@ -47,7 +47,7 @@ module.exports = {
       .setColor("DarkAqua")
       .setTimestamp()
       .setFooter({
-        text: interaction.user.username,
+        text: `Demande de : ${interaction.user.username}`,
         iconURL: interaction.user.displayAvatarURL(),
       });
 

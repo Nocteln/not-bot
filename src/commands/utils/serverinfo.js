@@ -11,6 +11,10 @@ module.exports = {
       .setTitle(`Informations du serveur : `)
       .setColor("Random")
       .setImage(interaction.guild.iconURL())
+      .setFooter({
+        text: `Demande de : ${interaction.user.username}`,
+        iconURL: interaction.user.displayAvatarURL(),
+      })
       .setFields({
         name: "Nom du serveur :",
         value: `\`${interaction.guild.name}\``,

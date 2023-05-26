@@ -20,7 +20,11 @@ module.exports = {
       .setTitle(`Photo de Profile de : ${member.user.username}`)
       .setImage(member.user.displayAvatarURL({ dynamic: true, size: 1024 }))
       .setDescription(`[lien direct](${member.user.avatarURL()})`)
-      .setColor(member.displayColor);
+      .setColor(member.displayColor)
+      .setFooter({
+        text: `Demande de : ${interaction.user.username}`,
+        iconURL: interaction.user.displayAvatarURL(),
+      });
 
     await interaction.reply({ embeds: [embed] });
   },
