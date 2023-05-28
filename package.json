@@ -19,6 +19,7 @@
   "dependencies": {
     "discord.js": "^14.11.0",
     "dotenv": "16.0.3",
-    "glob": "8.0.3"
+    "glob": "8.0.3",
+    "ms": "^2.1.3"
   }
 }
