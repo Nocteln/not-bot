@@ -102,7 +102,7 @@ module.exports = {
 
     try {
       await user.send(
-        `Tu as été mute du serveur \`${interaction.guild.name}\` par \`${mesinteraction.user.tag}\` pendant \`${temp}\` pour la raison suivante : \`${raison}\``
+        `Tu as été mute du serveur \`${interaction.guild.name}\` par \`${interaction.user.tag}\` pendant \`${temp}\` pour la raison suivante : \`${raison}\``
       );
     } catch (err) {}
 
@@ -111,7 +111,7 @@ module.exports = {
         embedr(
           "Green",
           ":white_check_mark: succes",
-          `${interaction.user} à mute \`${user.tag}\` pendant \`${temp}\` pour la raison : \`${raison}\``
+          `${interaction.user} à mute ${user} pendant \`${temp}\` pour la raison : \`${raison}\``
         ),
       ],
     });
