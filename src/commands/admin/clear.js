@@ -1,70 +1,41 @@
-const Discord = require("discord.js");
-const { embedr } = require("../../fonctions/embed");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, PermissionFlagsBits, ButtonStyle, PermissionsBitField } = require('discord.js');
+const { embedr } = require("../../fonctions/embed")
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("clear")
-    .setDescription("Permet d'éffacer une certaine quantitée de message")
+    .setDescription("Supprimez le nombre de message que vous souhaitez.")
+    .addIntegerOption(option => option.setName('amount').setDescription(`Nombre de message à supprimer.`).setMinValue(1).setMaxValue(100).setRequired(true))
     .setDMPermission(false)
-    .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ManageMessages)
-    .addNumberOption((o) =>
-      o
-        .setName("quantité")
-        .setDescription("la quantitée de message à supprimer")
-        .setRequired(true)
-    ),
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+  async execute(interaction, client) {
 
-  async execute(interaction) {
-    const number = interaction.options.getNumber("quantité");
-    if (parseInt(number) <= 0 || parseInt(number) > 100)
-      return interaction.reply({
-        embeds: [
-          embedr(
-            "Red",
-            ":x: erreur",
-            "Veuillez indiquer un nombre compris entre 0 et 100"
-          ),
-        ],
-      });
+    let number = interaction.options.getInteger(`amount`);
 
-    try {
-      let messages = await interaction.channel.bulkDelete(parseInt(number));
-      await interaction.reply({
-        embeds: [
-          embedr(
-            "Green",
-            ":white_check_mark: success",
-            `${messages.size} messages suprimés dans le salon ${channel}`
-          ),
-        ],
-      });
-    } catch (err) {
-      let messages = [
-        ...(await interaction.channel.messages.fetch())
-          .filter((msg) => Date.now() - msg.createdAt <= 1209600000)
-          .values(),
-      ];
-      if (messages.length <= 0)
-        return interaction.reply({
-          embeds: [
-            embedr(
-              "Red",
-              "❌ erreur",
-              `Aucun message à supprimer car ils datent de plus de 14 jours`
-            ),
-          ],
-        });
+    const embed2 = new EmbedBuilder()
+    .setColor('Red')
+    .setTimestamp()
+    .setDescription(`**Suppréssion des messages effectué !**`)
+    .addFields(
+        {
+            name: "<:br:997908527442034718> | Administrateur:",
+            value: `<:flrg:997911019944935484> ${interaction.user}`,
+            inline: true,
+        },
+        {
+            name: "<:br:997908527442034718> | Message Supprimé",
+            value: `<:flrg:997911019944935484> \`${number}\``,
+            inline: true,
+        }
+    )
+        try {
+          await interaction.reply({embeds: [embedr("Green", ":white_check_mark: succès", number === 1?`${number} message a été supprimé`: `${number} messages ont été supprimé`)], ephemeral: true});
+          await interaction.channel.bulkDelete(number)
 
-      await interaction.channel.bulkDelete(messages);
-      await interaction.reply({
-        embeds: [
-          embedr(
-            "Green",
-            ":white_check_mark: succes",
-            `${messages.size} messages suprimés car les autres dataient de plus de 14 jours`
-          ),
-        ],
-      });
-    }
+        } catch(err) {
+          console.log(`erreur dans le clear.js : \n ${err}`)
+          return interaction.reply({embeds: [embedr("Red", ':x: erreur', "Les messages que vous tentez de supprimer sont trop anciens !")], ephemeral: true})
+        }
+    
   },
 };
