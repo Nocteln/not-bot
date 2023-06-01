@@ -1,4 +1,4 @@
-const { AuditLogEvent, Events } = require("discord.js");
+const { AuditLogEvent, Events, MessageActivityType } = require("discord.js");
 
 module.exports = {
   name: Events.MessageCreate,
@@ -8,7 +8,6 @@ module.exports = {
     } else if (message.content === "quoi" || message.content === "Quoi") {
       message.reply("feur");
     }
-
     console.log(
       `Un message à été envoyé par ${message.author.username} dans ${message.channelId}.`
     );
