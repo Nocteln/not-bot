@@ -11,6 +11,7 @@ module.exports = {
         .setDescription("Membre dont vous voulez voir la photo de profile")
         .setRequired(false)
     ),
+    cat: "utils",
 
   async execute(interaction) {
     const user = interaction.options.getUser("membre") || interaction.user;

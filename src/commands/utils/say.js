@@ -9,7 +9,7 @@ module.exports = {
     .addStringOption((o) =>
       o.setName("phrase").setDescription("La phrase à dire").setRequired(true)
     ),
-
+cat: "utils",
   async execute(interaction) {
     const phrase = interaction.options.getString("phrase");
     interaction.guild.channels
