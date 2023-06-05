@@ -13,6 +13,8 @@ module.exports = {
     .addRoleOption((o) =>
       o.setName("role").setDescription("Le role que vous voulez débloquer")
     ),
+    cat: "admin",
+    uti: "",
 
   async execute(interaction) {
     const channel =

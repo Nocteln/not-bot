@@ -6,6 +6,8 @@ module.exports = {
         .setDescription("Permet de tester les différents composants.")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false),
+        cat: "admin",
+        uti: "",
     async execute(interaction) {
         const row = new ActionRowBuilder()
             .addComponents(

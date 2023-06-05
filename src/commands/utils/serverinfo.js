@@ -6,6 +6,7 @@ module.exports = {
     .setDescription("Informations du serveur")
     .setDMPermission(false),
 cat: "utils",
+uti: "",
   async execute(interaction) {
     const embed = new EmbedBuilder()
       .setTitle(`Informations du serveur : `)

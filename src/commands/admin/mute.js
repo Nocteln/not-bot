@@ -16,7 +16,8 @@ module.exports = {
     .addStringOption((o) =>
       o.setName("raison").setDescription("La raison du mute")
     ),
-
+cat: "admin",
+uti: "",
   async execute(interaction) {
     user = interaction.options.getUser("membre");
     if (!user)

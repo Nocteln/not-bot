@@ -10,6 +10,7 @@ module.exports = {
       o.setName("phrase").setDescription("La phrase à dire").setRequired(true)
     ),
 cat: "utils",
+uti: "/say [phrase]",
   async execute(interaction) {
     const phrase = interaction.options.getString("phrase");
     interaction.guild.channels

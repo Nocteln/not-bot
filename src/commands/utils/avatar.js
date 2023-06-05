@@ -12,6 +12,7 @@ module.exports = {
         .setRequired(false)
     ),
     cat: "utils",
+    uti: "",
 
   async execute(interaction) {
     const user = interaction.options.getUser("membre") || interaction.user;

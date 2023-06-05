@@ -16,6 +16,8 @@ module.exports = {
     .addStringOption((o) =>
       o.setName("raison").setDescription("La raison du débannissement")
     ),
+    cat: "admin",
+    uti: "",
 
   async execute(interaction) {
     try {

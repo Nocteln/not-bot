@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("invite")
     .setDescription("Envoie quelques liens utiles"),
-cat: "utils",
+cat: "utils",uti: "",
   async execute(interaction) {
     const embed = new EmbedBuilder()
       .setTitle("<:lien:1111707634836439062> liens utiles")

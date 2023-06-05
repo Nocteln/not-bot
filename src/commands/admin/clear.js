@@ -8,6 +8,8 @@ module.exports = {
     .addIntegerOption(option => option.setName('amount').setDescription(`Nombre de message à supprimer.`).setMinValue(1).setMaxValue(100).setRequired(true))
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+    cat: "admin",
+    uti: "",
   async execute(interaction, client) {
 
     let number = interaction.options.getInteger(`amount`);

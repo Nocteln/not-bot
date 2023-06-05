@@ -13,7 +13,8 @@ module.exports = {
     .addStringOption((o) =>
       o.setName("raison").setDescription("La raison du bannissement")
     ),
-
+cat:"admin",
+uti: "/ban [membre] (raison)",
   async execute(interaction) {
     try {
       const user = interaction.options.getUser("membre");

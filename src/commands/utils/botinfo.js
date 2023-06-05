@@ -6,6 +6,7 @@ module.exports = {
     .setDescription("Afficher les informations du bot.")
     .setDMPermission(true),
     cat: "utils",
+    uti: "",
   async execute(interaction) {
     const botUser = interaction.client.user;
 

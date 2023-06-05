@@ -16,7 +16,7 @@ module.exports = {
     .addStringOption((o) =>
       o.setName("raison").setDescription("La raison de l'exclusion")
     ),
-
+cat: "admin",uti: "",
   async execute(interaction) {
     try {
       const user = interaction.options.getUser("membre");
