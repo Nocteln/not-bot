@@ -29,7 +29,7 @@ module.exports = {
     let zip;
     if (interaction.options.getInteger("code"))
       zip = interaction.options.getInteger("code");
-
+await interaction.deferReply()
     // if (
     //   !interaction.options.getString("ville") &&
     //   !interaction.options.getInteger("code")
@@ -58,12 +58,21 @@ module.exports = {
     weather.setZipCode(95170);
     weather.setAPPID("e3ec149b9263b286738d6e499480c828");
     // if (ville) weather.setCity(ville);
-    // weather.setUnits("metric");
+     weather.setUnits("metric");
     let embed = new Discord.EmbedBuilder().setTitle(`Météo`);
     await weather.getTemperature(function (err, temp) {
-      embed.addFields({ name: "Température: ", value: temp });
+      embed.addFields({ name: "Température: ", value: `${temp}°` });
     });
-
-    await interaction.reply({ embeds: [embed] });
+    weather.getAllWeather(function(err, JSONObj){
+      embed.addFields({name: "Température ressentie :", name: `${JSONObj.feels_like}°`})
+    })
+    await weather.getHumidity(function(err, hum){
+      embed.addFields({name: "Humiditée :", value: `${hum}%`})
+    })
+    await weather.getDescription(function(err, desc){
+      embed.setDescription(`${desc}`)
+    })
+    await setTimeout(function(){interaction.editReply({ embeds: [embed] });}, 1000)
+    
   },
 };
