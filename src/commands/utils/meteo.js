@@ -6,73 +6,70 @@ module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName("meteo")
     .setDescription("Obtenir la météo d'une ville")
-    .addStringOption((o) =>
-      o
-        .setName("ville")
-        .setDescription("La ville dont vous voulez voir la météo")
-    )
     .addIntegerOption((o) =>
       o
         .setName("code")
         .setDescription(
           "Le code postal de la ville dont vous voulez voir la météo"
-        )
+        ).setRequired(true)
     ),
   cat: "utils",
   uti: "/meteo",
 
   async execute(interaction) {
-    // let ville;
-    // if (interaction.options.getString("ville"))
-    //   ville = interaction.options.getString("ville");
-
-    let zip;
+    
     if (interaction.options.getInteger("code"))
       zip = interaction.options.getInteger("code");
 await interaction.deferReply()
-    // if (
-    //   !interaction.options.getString("ville") &&
-    //   !interaction.options.getInteger("code")
-    // )
-    //   return interaction.reply({
-    //     embeds: [
-    //       embedr(
-    //         "Red",
-    //         ":x: erreur",
-    //         "veuillez indiquer un nom de ville ou un code postal"
-    //       ),
-    //     ],
-    //   });
 
-    // if (zip.toString().length !== 5)
-    //   return interaction.reply({
-    //     embeds: [
-    //       embedr(
-    //         "Red",
-    //         ":x: erreur",
-    //         "veuillez indiquer un code postal valide !"
-    //       ),
-    //     ],
-    //   });
+  
+       const isValid = /^\d{5}(-\d{4})?(?!-)$/.test(zip)
+
+       if(!isValid) return interaction.editReply({embeds: [embedr("Red", ":x: erreur", "Veuillez entrer un code postal valide")]})
     weather.setLang("fr");
-    weather.setZipCode(95170);
-    weather.setAPPID("e3ec149b9263b286738d6e499480c828");
-    // if (ville) weather.setCity(ville);
-     weather.setUnits("metric");
-    let embed = new Discord.EmbedBuilder().setTitle(`Météo`);
-    await weather.getTemperature(function (err, temp) {
-      embed.addFields({ name: "Température: ", value: `${temp}°` });
-    });
-    weather.getAllWeather(function(err, JSONObj){
-      embed.addFields({name: "Température ressentie :", name: `${JSONObj.feels_like}°`})
-    })
-    await weather.getHumidity(function(err, hum){
-      embed.addFields({name: "Humiditée :", value: `${hum}%`})
-    })
-    await weather.getDescription(function(err, desc){
-      embed.setDescription(`${desc}`)
-    })
-    await setTimeout(function(){interaction.editReply({ embeds: [embed] });}, 1000)
+
+    try{
+      
+      weather.setZipCode(zip);
+      weather.setAPPID("e3ec149b9263b286738d6e499480c828");
+      // if (ville) weather.setCity(ville);
+       weather.setUnits("metric");
+      let embed = new Discord.EmbedBuilder().setTitle(`Météo`).setDescription("ville non reconnue");
+      await weather.getTemperature(function (err, temp) {
+        
+      });
+      await weather.getAllWeather(function(err, JSONObj){
+        embed.addFields({ name: "Température: ", value: `${JSONObj.main.temp?JSONObj.main.temp:"Pas de données"}°` });
+        embed.addFields({name: "Température ressentie :", value: `${JSONObj.main.feels_like?JSONObj.main.feels_like:"Pas de données"}°`})
+        embed.addFields({name: "Température min :", value: `${JSONObj.main.temp_min?JSONObj.main.temp_min:"Pas de données"}°`})
+        embed.addFields({name: "Température max :", value: `${JSONObj.main.temp_max?JSONObj.main.temp_max:"Pas de données"}°`})
+        console.log(JSONObj.weather[0].main)
+        switch (JSONObj.weather[0].main) {
+          case "Clouds": 
+          embed.setColor("Grey")
+          break
+          case "Clear":
+            embed.setColor("Blue")
+            break
+        } 
+      })
+      await weather.getHumidity(function(err, hum){
+        embed.addFields({name: "Humiditée :", value: `${hum}%`})
+      })
+    
+      await weather.getDescription(function(err, desc){
+        embed.setDescription(`${desc}`)
+      })
+      await setTimeout(function(){interaction.editReply({ embeds: [embed] });}, 1500)
+    } catch(err){
+      //console.log(err)
+      interaction.editReply("cc") 
+    }
+
+    
+
+
+
     
   },
 };
