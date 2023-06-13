@@ -100,6 +100,7 @@ cat: "admin",uti: "",
         await user.send(
           `Tu as été exclus du serveur \`${interaction.guild.name}\` par \`${interaction.user.tag}\` pour la raison suivante : \`${raison}\``
         );
+        await interaction.client.db.set("ban", user.id)
       } catch (err) {}
 
       await interaction.reply({
