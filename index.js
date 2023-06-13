@@ -9,20 +9,20 @@ client.buttons = new Collection();
 client.selectMenus = new Collection();
 client.modals = new Collection();
 
-const { QuickDB, MySQLDriver } = require("quick.db");
-(async () => {
-  const mysql = new MySQLDriver({
-    host: "localhost",
-    user: "root",
-    password: "1234",
-    database: "not-bot",
-  });
+// const { QuickDB, MySQLDriver } = require("quick.db");
+// (async () => {
+//   const mysql = new MySQLDriver({
+//     host: "localhost",
+//     user: "root",
+//     password: "1234",
+//     database: "not-bot",
+//   });
   
-  // Important: Connect to MySQL server before using it
-  await mysql.connect();
+//   // Important: Connect to MySQL server before using it
+//   await mysql.connect();
   
-  const db = new QuickDB({ driver: mysql });
-})();
+//   const db = new QuickDB({ driver: mysql });
+// })();
 
 ["commands", "events", "buttons", "modals", "selectMenus"].forEach(
   (handler) => {

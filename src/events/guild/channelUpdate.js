@@ -8,11 +8,11 @@ const {
 module.exports = {
   name: Events.ChannelUpdate,
   async execute(oldchannel, newchannel) {
-    console.log(
-      oldchannel,
-      "-----------------------------------------------------------\n----------\n----------",
-      newchannel
-    );
+    // console.log(
+    //   oldchannel,
+    //   "-----------------------------------------------------------\n----------\n----------",
+    //   newchannel
+    // );
     const salon = await newchannel.guild.channels.fetch("1114496483870375936");
     const oldcat = await oldchannel.guild.channels.fetch(oldchannel.parentId);
     const newCat = await newchannel.guild.channels.fetch(newchannel.parentId);
