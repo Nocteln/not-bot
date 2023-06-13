@@ -6,7 +6,7 @@
 >
 >GUILD_ID=876217954688172062
 >
->ON_WINDOWS=false```	
+>ON_WINDOWS=false	
 
 > # faire `npm i`
 
