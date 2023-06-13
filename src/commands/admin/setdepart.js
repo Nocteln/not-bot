@@ -14,17 +14,19 @@ module.exports = {
     .addStringOption((o) =>
       o
         .setName("etat")
-        .setDescription("Etat du systeme de départ : on ou off")
+        .setDescription("Etat du systeme de bienvenue : on ou off")
         .setRequired(true)
     )
+    .addStringOption(o=>o.setName("phrase").setDescription("Phrase du message"))
     .addChannelOption((o) =>
       o.setName("salon").setDescription("Le salon où envoyer le message")
     ),
   cat: "admin",
-  uti: "/setdepart [etat] (salon)",
+  uti: "/setdepart [etat] (salon) (phrase)",
   async execute(interaction) {
     let channel = interaction.options.getChannel("salon");
     let etat = interaction.options.getString("etat");
+    let phrase = interaction.options.getString("phrase");
     if (channel) {
       if (channel.type !== 0)
         return await interaction.reply({
@@ -55,7 +57,18 @@ module.exports = {
             ),
           ],
         });
-        await db.set(`byechannel_${interaction.guild.id}`, channel.id);
+        if(phrase) {await db.set(`byechannel_${interaction.guild.id}`, {salon: channel.id, phrase: phrase});
+        await interaction.reply({
+          embeds: [
+            embedr(
+              "Green",
+              ":white_check_mark: succes!",
+              `Le message de départ s'envéra dans ${channel} avec comme contenu : \`\`\`${phrase}\`\`\``
+            ),
+          ],
+        });
+      } else {
+        await db.set(`byechannel_${interaction.guild.id}`, {salon:  `${channel.id}`});
         await interaction.reply({
           embeds: [
             embedr(
@@ -65,6 +78,7 @@ module.exports = {
             ),
           ],
         });
+      }
       } catch (err) {
         await interaction.reply({
           embeds: [

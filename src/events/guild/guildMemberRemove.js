@@ -14,10 +14,24 @@ const {
     
       const embed = new EmbedBuilder().setTitle(`${member.user.username} à quité le serveur!`).setColor("Green").setThumbnail(member.user.displayAvatarURL({dynamic: true})).setDescription(`avait rejoint le : <t:${parseInt(member.joinedTimestamp / 1000)}:F>`)
       await salon.send({embeds: [embed]})
-      if(await db.get(`byechannel_${member.guild.id}`)){
-        let chx = await member.guild.channels.fetch(await db.get(`byechannel_${member.guild.id}`))
-        await chx.send({embeds: [embed]})
-    } 
+      if (!(await db.get(`byechannel_${member.guild.id}.salon`))) return;
+    let chx = await member.guild.channels.fetch(
+      await db.get(`byechannel_${member.guild.id}.salon`)
+    );
+    const message = await db.get(`byechannel_${member.guild.id}.phrase`);
+
+    if (!message) return await chx.send({ embeds: [embed] });
+
+    const newmsg = message
+      .replace("{member}", member.user.username)
+      .replace("{server}", member.guild.name)
+      .replace("{membercount}", member.guild.memberCount)
+      .replace("{servercount}", member.guild.memberCount)
+      .replace("{serverid}", member.guild.id)
+      .replace("{id}", member.user.id);
+
+    await chx.send(newmsg);
+    
     },
   };
   
