@@ -31,10 +31,10 @@ module.exports = async (client) => {
       );
 
       const data = await rest.put(
-        Routes.applicationGuildCommands(
-          // applicationCommands & delete Guild_ID pour appliquer à tous les serveurs
+        Routes.applicationCommands(
+          // applicationCommands & delete Guild_ID pour appliquer à tous les serveurs // applicationGuildCommands & ajt Guild_ID pour appliquer à tous les serve
           process.env.CLIENT_ID,
-          process.env.GUILD_ID
+          // process.env.GUILD_ID
         ),
         { body: commands }
       );

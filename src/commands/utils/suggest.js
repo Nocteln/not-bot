@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const { embedr } = require("../../fonctions/embed");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
+const settruc = db.table("settruc")
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -29,7 +30,7 @@ module.exports = {
       .setAuthor({name: `${interaction.user.username}`, iconURL: `${ interaction.user.displayAvatarURL({dynamic: true})}`})
       .setTimestamp()
 
-    if (!await db.get(`suggest_${interaction.guild.id}`)) {
+    if (!await settruc.get(`suggest_${interaction.guild.id}`)) {
       return interaction.reply({
         embeds: [
           embedr(
@@ -40,7 +41,7 @@ module.exports = {
         ],
       });
     } else {
-      const id = await db.get(`suggest_${interaction.guild.id}`);
+      const id = await settruc.get(`suggest_${interaction.guild.id}`);
       const salon = await interaction.guild.channels.fetch(id);
       await salon.send({ embeds: [embed] });
       await interaction.reply({embeds: [embedr("Green", ":white_check_mark: success", `Suggestion envoyée avec succès dans ${salon}`)], ephemeral: true});

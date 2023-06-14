@@ -6,6 +6,7 @@ const {
     MessageActivityType,
     EmbedBuilder,
   } = require("discord.js");
+  const settruc = db.table("settruc")
   
   module.exports = {
     name: Events.GuildMemberRemove,
@@ -14,11 +15,11 @@ const {
     
       const embed = new EmbedBuilder().setTitle(`${member.user.username} à quité le serveur!`).setColor("Green").setThumbnail(member.user.displayAvatarURL({dynamic: true})).setDescription(`avait rejoint le : <t:${parseInt(member.joinedTimestamp / 1000)}:F>`)
       await salon.send({embeds: [embed]})
-      if (!(await db.get(`byechannel_${member.guild.id}.salon`))) return;
+      if (!(await settruc.get(`byechannel_${member.guild.id}.salon`))) return;
     let chx = await member.guild.channels.fetch(
-      await db.get(`byechannel_${member.guild.id}.salon`)
+      await settruc.get(`byechannel_${member.guild.id}.salon`)
     );
-    const message = await db.get(`byechannel_${member.guild.id}.phrase`);
+    const message = await settruc.get(`byechannel_${member.guild.id}.phrase`);
 
     if (!message) return await chx.send({ embeds: [embed] });
 

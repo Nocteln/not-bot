@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const { embedr } = require("../../fonctions/embed");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
+const settruc = db.table("settruc")
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -56,7 +57,7 @@ module.exports = {
           ],
         });
         
-        await db.set(`suggest_${interaction.guild.id}`, `${channel.id}`);
+        await settruc.set(`suggest_${interaction.guild.id}`, `${channel.id}`);
         await interaction.reply({
           embeds: [
             embedr(
@@ -79,9 +80,9 @@ module.exports = {
         });
       }
     } else if (etat === "off") {
-      if(!await db.get(`suggest_${interaction.guild.id}`)) return await interaction.reply({embeds: [embedr("Red", ":x: Erreur!", "Le systeme de suggestion est déjà désactivé!")]});
+      if(!await settruc.get(`suggest_${interaction.guild.id}`)) return await interaction.reply({embeds: [embedr("Red", ":x: Erreur!", "Le systeme de suggestion est déjà désactivé!")]});
 
-      db.delete(`suggest_${interaction.guild.id}`);
+      settruc.delete(`suggest_${interaction.guild.id}`);
       await interaction.reply({embeds: [embedr("Green", ":white_check_mark: succès!", "Le systeme de suggestions est désactivé!")]});
     } else
       return await interaction.reply({

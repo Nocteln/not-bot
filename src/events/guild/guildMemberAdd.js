@@ -7,6 +7,8 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const settruc = db.table("settruc")
+
 module.exports = {
   name: Events.GuildMemberAdd,
   async execute(member) {
@@ -18,11 +20,11 @@ module.exports = {
       .setDescription(`<t:${parseInt(member.joinedTimestamp / 1000)}:F>`);
     await salon.send({ embeds: [embed] });
 
-    if (!(await db.get(`welchannel_${member.guild.id}.salon`))) return;
+    if (!(await settruc.get(`welchannel_${member.guild.id}.salon`))) return;
     let chx = await member.guild.channels.fetch(
-      await db.get(`welchannel_${member.guild.id}.salon`)
+      await settruc.get(`welchannel_${member.guild.id}.salon`)
     );
-    const message = await db.get(`welchannel_${member.guild.id}.phrase`);
+    const message = await settruc.get(`welchannel_${member.guild.id}.phrase`);
 
     if (!message) return await chx.send({ embeds: [embed] });
 

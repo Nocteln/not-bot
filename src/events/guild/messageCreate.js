@@ -7,12 +7,14 @@ const {
 
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
+const rang = db.table("rang");
 
 const {embedr} = require('../../fonctions/embed')
 module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
-    const salon = await message.guild.channels.fetch("1114496483870375936");
+   let salon 
+    if(message.guildId === "876217954688172062") salon =await message.guild.channels.fetch("1114496483870375936");
     const channel = message.channel;
 
     const embed = new EmbedBuilder()
@@ -30,20 +32,19 @@ module.exports = {
       message.reply("feur");
     }
     if (!message.author.bot) {
-      salon.send({ embeds: [embed], content: null });
+      if(message.guildId === "876217954688172062") salon.send({ embeds: [embed], content: null });
+      if(!await rang.get(`lvl_${message.guild.id}_${message.author.id}`)) {
 
-      if(!await db.get(`lvl_${message.guild.id}_${message.author.id}`)) {
-
-        await db.set(`lvl_${message.guild.id}_${message.author.id}`, {xp: 0, level: 1});
+        await rang.set(`lvl_${message.guild.id}_${message.author.id}`, {xp: Math.floor(Math.random() * 10), level: 1});
       } else {
-        const xp = await db.get(`lvl_${message.guild.id}_${message.author.id}.xp`);
-        const level = await db.get(`lvl_${message.guild.id}_${message.author.id}.level`);
+        const xp = await rang.get(`lvl_${message.guild.id}_${message.author.id}.xp`);
+        const level = await rang.get(`lvl_${message.guild.id}_${message.author.id}.level`);
 
-      await db.add(`lvl_${message.guild.id}_${message.author.id}.xp`, Math.floor(Math.random() * 10));
+      await rang.add(`lvl_${message.guild.id}_${message.author.id}.xp`, Math.floor(Math.random() * 10));
       // await db.delete(`lvl_${message.guild.id}_${message.author.id}`);
       if(xp > level * 500) {
-        await db.set(`lvl_${message.guild.id}_${message.author.id}.level`, level + 1);
-        await db.set(`lvl_${message.guild.id}_${message.author.id}.xp`, 0);
+        await rang.set(`lvl_${message.guild.id}_${message.author.id}.level`, level + 1);
+        await rang.set(`lvl_${message.guild.id}_${message.author.id}.xp`, 0);
         await channel.send({embeds: [embedr('Green', ":tada: Félicitation!", `Vous avez atteint le niveau ${level + 1}!`)]})
       }
       }

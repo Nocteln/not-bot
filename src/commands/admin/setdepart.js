@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const { embedr } = require("../../fonctions/embed");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
+const settruc = db.table("settruc")
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -57,7 +58,7 @@ module.exports = {
             ),
           ],
         });
-        if(phrase) {await db.set(`byechannel_${interaction.guild.id}`, {salon: channel.id, phrase: phrase});
+        if(phrase) {await settruc.set(`byechannel_${interaction.guild.id}`, {salon: channel.id, phrase: phrase});
         await interaction.reply({
           embeds: [
             embedr(
@@ -68,7 +69,7 @@ module.exports = {
           ],
         });
       } else {
-        await db.set(`byechannel_${interaction.guild.id}`, {salon:  `${channel.id}`});
+        await settruc.set(`byechannel_${interaction.guild.id}`, {salon:  `${channel.id}`});
         await interaction.reply({
           embeds: [
             embedr(
@@ -91,9 +92,9 @@ module.exports = {
         });
       }
     } else if (etat === "off") {
-      if(!await db.get(`byechannel_${interaction.guild.id}`)) return await interaction.reply({embeds: [embedr("Red", ":x: Erreur!", "Le systeme de départ est déjà désactivé!")]});
+      if(!await settruc.get(`byechannel_${interaction.guild.id}`)) return await interaction.reply({embeds: [embedr("Red", ":x: Erreur!", "Le systeme de départ est déjà désactivé!")]});
 
-      db.delete(`byechannel_${interaction.guild.id}`);
+      settruc.delete(`byechannel_${interaction.guild.id}`);
       await interaction.reply({embeds: [embedr("Green", ":white_check_mark: succès!", "Le systeme de départ est désactivé!")]});
     } else
       return await interaction.reply({

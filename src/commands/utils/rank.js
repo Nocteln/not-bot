@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { QuickDB } = require('quick.db');
 const db = new QuickDB();
+const rang = db.table("rang");
 const { embedr } =require("../../fonctions/embed")
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
     async execute(interaction) {
         let user = interaction.options.getUser("utilisateur");
         if(!user) user = interaction.user;
-        const rank = await db.get(`lvl_${interaction.guild.id}_${user.id}`);
+        const rank = await rang.get(`lvl_${interaction.guild.id}_${user.id}`);
         if(!rank) return interaction.reply({ embeds: [embedr("Red", ":x: erreur", "Ce membre n'as pas d'xp")], ephemeral: true });
         const embed = new Discord.EmbedBuilder()
       .setTitle(`Rang de ${user.username}`)
