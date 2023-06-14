@@ -28,7 +28,9 @@ const {
       .replace("{membercount}", member.guild.memberCount)
       .replace("{servercount}", member.guild.memberCount)
       .replace("{serverid}", member.guild.id)
-      .replace("{id}", member.user.id);
+      .replace("{id}", member.user.id)
+      .replace('{createdat}', member.user.createdAt.toDateString())
+      .replace('{joinedat}', member.joinedAt.toDateString());
 
     await chx.send(newmsg);
     
