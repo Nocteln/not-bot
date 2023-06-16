@@ -20,7 +20,7 @@ module.exports = {
         )
     ),
   cat: "fun",
-  uti: "/bingo",
+  uti: "/bingo (max) (aide)",
 
   async execute(interaction) {
     const max = interaction.options.getNumber("max");
@@ -52,9 +52,9 @@ module.exports = {
       await interaction.channel
         .awaitMessages({ max: 1, time: 60_000, errors: ["time"] })
         .then((collected) => {
+            const number = parseInt(collected.first().content);
+            if (isNaN(number)) return;
           collected.first().delete();
-          const number = parseInt(collected.first().content);
-          if (isNaN(number)) return;
 
           tries++;
 

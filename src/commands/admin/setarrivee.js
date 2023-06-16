@@ -15,7 +15,6 @@ module.exports = {
       o
         .setName("etat")
         .setDescription("Etat du systeme de bienvenue : on ou off")
-        .setRequired(true)
         .addChoices({name: "on", value: "on"}, {name: "off", value: "off"})
         
     )
