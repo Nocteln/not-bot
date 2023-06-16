@@ -18,7 +18,7 @@ module.exports = {
         const rank = await rang.get(`lvl_${interaction.guild.id}_${user.id}`);
         if(!rank) return interaction.reply({ embeds: [embedr("Red", ":x: erreur", "Ce membre n'as pas d'xp")], ephemeral: true });
         const embed = new Discord.EmbedBuilder()
-      .setTitle(`Rang de ${user.username}`)
+      .setTitle(`Niveau de ${user.username}`)
       .setDescription(`> Xp : ${rank.xp}/${rank.level*500}\n> Level : ${rank.level}`)
       .setColor('Random')
       await interaction.reply({ embeds: [embed]});

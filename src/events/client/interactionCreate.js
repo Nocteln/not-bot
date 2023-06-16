@@ -65,6 +65,19 @@ module.exports = {
                 console.error(`Erreur d'exécution du menu contextuel : ${interaction.customId}`);
                 console.error(error);
             }
+        } else if(interaction.isAutocomplete()) {
+            const command = interaction.client.commands.get(interaction.commandName);
+
+            if (!command) {
+                console.error(`No command matching ${interaction.commandName} was found.`);
+                return;
+            }
+    
+            try {
+                await command.autocomplete(interaction);
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             console.error(`Interaction inconnue : ${interaction}`);
         }

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Guscraftin/Bot-base_General#readme",
   "dependencies": {
     "better-sqlite3": "^8.4.0",
+    "discord-canvas-easy": "^3.2.1",
     "discord.js": "^14.11.0",
     "dotenv": "16.0.3",
     "fs": "^0.0.1-security",
